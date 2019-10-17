@@ -16,6 +16,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 import dataS from './CustomerList';
 import  { Avatar } from 'react-native-elements';
 
+import imageLogo from './assets/bekologo.png';
+
+import {
+  Container, Header, Left, Body, Right, Icon, Title , Form, Item, Input, Label ,Button as Button2, Text as Text2
+} from 'native-base'
+
 class LogoTitle extends React.Component {
   render() {
     return (
@@ -110,13 +116,45 @@ class DetailsScreen extends React.Component {
   }
 }
 
+class LoginScreen extends React.Component{
+
+  handleLoginPress = () => {
+    console.log("Login button pressed"); this.props.navigation.navigate('Home');
+  };
+  static navigationOptions = {
+    header: null
+};
+  render(){
+    return(
+    <Container style={styles.containerLogin}>
+        <Image source={imageLogo} style={styles.logo}/>
+        <Form style={styles.form}>
+        <Item rounded style={styles.textInput}>
+            <Input placeholder='User name' returnKeyType='next'/>
+          </Item>
+          <Item rounded style={styles.textInput}>
+            <Input placeholder='Password' returnKeyType='done' secureTextEntry/>
+          </Item>
+          <Button
+          title="Log In"
+          onPress={this.handleLoginPress}
+        />
+          </Form>
+         
+      </Container>
+    );
+  }
+}
+
+
 const RootStack = createStackNavigator(
   {
+    Login : LoginScreen,
     Home: HomeScreen,
     Details: DetailsScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
   
   defaultNavigationOptions:
     {
@@ -199,4 +237,34 @@ const styles = StyleSheet.create({
     fontSize:16,
     color:"#151515",
   },
+  containerLogin: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  logo: {
+    flex: 1,
+    width: "30%",
+    resizeMode: "contain",
+    marginTop:100
+  },
+  form: {
+    flex: 6,
+    justifyContent: "center",
+    width: "80%"
+  },
+  textInput: {
+    height: 40,
+    borderColor: '#BEBEBE',
+    borderBottomWidth: 2,
+    borderTopWidth:2,
+    borderLeftWidth:2,
+    borderRightWidth:2,
+    borderTopLeftRadius:15,
+    borderTopRightRadius:15,
+    borderBottomLeftRadius:15,
+    borderBottomRightRadius:15,
+    marginBottom: 20
+  }
 });
