@@ -22,7 +22,8 @@ import opportunityIcon from './assets/opportunity.png';
 import incomeIcon from './assets/income.png';
 
 import {
-  Container, Header, Left, Body, Right, Icon, Title, Form, Item, Input, Label, Button as Button2, Text as Text2
+  Card, CardItem, Thumbnail, Content,
+  Container, Header, Left, Body, Right, Icon, Title, Form, Item, Input, Label, Button as Button2, Text as Text2, Footer, Separator
 } from 'native-base';
 
 import DisplayModal from './Comment';
@@ -56,6 +57,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button title="Go Back" onPress={() => this.props.navigation.goBack()} />
         <ListView enableEmptySections={true}
           style={styles.eventList}
           dataSource={this.state.dataSource}
@@ -127,7 +129,7 @@ class DetailsScreen extends React.Component {
             </Text>
           </View>
           <View style={styles.welcome}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
               <Text style={styles.bold}>
                 Visit Notes
               </Text>
@@ -143,7 +145,7 @@ class DetailsScreen extends React.Component {
                 closeDisplay={() => this.setState({ display: false })}
               />
             </View>
-            <View style={{ flex: 1, flexWrap: 'wrap',marginTop:-50 }}>
+            <View style={{ flex: 1, flexWrap: 'wrap', marginTop: -50 }}>
               <Text>
                 {global.SessionVar}
               </Text>
@@ -151,9 +153,9 @@ class DetailsScreen extends React.Component {
 
           </View>
           <View style={styles.welcome}>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
-            <Text style={styles.bold}>
-              Documents
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
+              <Text style={styles.bold}>
+                Documents
             </Text>
             </View>
             <Text style={{ color: 'blue', margin: 5 }}
@@ -173,9 +175,9 @@ class DetailsScreen extends React.Component {
             </Text>
           </View>
           <View style={styles.welcome} >
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.bold}>
-              Images
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.bold}>
+                Images
             </Text>
             </View>
             <View style={styles.images}>
@@ -230,7 +232,7 @@ class LoginScreen extends React.Component {
 }
 
 
-class DashboardScreen extends React.Component{
+class DashboardScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -240,172 +242,177 @@ class DashboardScreen extends React.Component{
       height: '100%',
       dataFormat: 'json',
       dataSource: {
-            "chart": {
-                "caption": "Harry's SuperMart",
-                "subCaption": "Top 5 stores in last month by revenue",
-                "numberprefix": "$",
-                "theme": "fint"
-            },
-            "data": [
-                {
-                    "label": "Bakersfield Central",
-                    "value": "880000"
-                },
-                {
-                    "label": "Garden Groove harbour",
-                    "value": "730000"
-                }, 
-                {
-                    "label": "Los Angeles Topanga",
-                    "value": "590000"
-                },
-                {
-                    "label": "Compton-Rancho Dom",
-                    "value": "520000"
-                },
-                {
-                    "label": "Daly City Serramonte",
-                    "value": "330000"
-                }
-            ]
-        }
+        "chart": {
+          "caption": "Harry's SuperMart",
+          "subCaption": "Top 5 stores in last month by revenue",
+          "numberprefix": "$",
+          "theme": "fint"
+        },
+        "data": [
+          {
+            "label": "Bakersfield Central",
+            "value": "880000"
+          },
+          {
+            "label": "Garden Groove harbour",
+            "value": "730000"
+          },
+          {
+            "label": "Los Angeles Topanga",
+            "value": "590000"
+          },
+          {
+            "label": "Compton-Rancho Dom",
+            "value": "520000"
+          },
+          {
+            "label": "Daly City Serramonte",
+            "value": "330000"
+          }
+        ]
+      }
     };
 
     this.libraryPath = './assets/fusioncharts.html';
-  } 
-  render(){
-    return(
+  }
+  eventClickListener = (viewId) => {
+    this.props.navigation.navigate('Home', { itemId: viewId });
+  }
+  render() {
+    return (
       <Container>
-      <Header />
-      <Content style={styles.cardStyle}>
-        <Card>
-          <CardItem>
-            <Body style={styles.levo}>
-              <Thumbnail style={styles.levo} source={visitIcon} />
-              <Text2 style={styles.levo}>Total Visits</Text2>
-              <Text2 style={styles.levo}>15</Text2>
-            </Body>
-          </CardItem>
-          <CardItem>
-            <Body
-  style={{
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  }}
->
-            </Body>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+        <Header />
+        <Content style={styles.cardStyle}>
+          <Card>
+          <TouchableOpacity onPress={() => this.eventClickListener(5)}>
+            <CardItem>
+              <Body style={styles.levo}>
+                <Thumbnail style={styles.levo} source={visitIcon} />
+                <Text2 style={styles.levo}>Total Visits</Text2>
+                <Text2 style={styles.levo}>15</Text2>
+              </Body>
+            </CardItem>
+            </TouchableOpacity>
+            <CardItem>
+              <Body
+                style={{
+                  borderBottomColor: '#ccc',
+                  borderBottomWidth: 1,
+                }}
+              >
+              </Body>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Completed Plans</Text>
-            </Left>
-            <Right>
-              <Text>6</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>6</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Incompleted Plans</Text>
-            </Left>
-            <Right>
-              <Text>9</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPaddingLast}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>9</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPaddingLast}>
+              <Left>
                 <Text>Average Visits Per Day</Text>
-            </Left>
-            <Right>
-              <Text>2</Text>
-            </Right>
-          </CardItem>
-        </Card>
-        <Card>
-          <CardItem>
-            <Body style={styles.levo}>
-              <Thumbnail style={styles.levo} source={opportunityIcon} />
-              <Text2 style={styles.levo}>Total Opportunity</Text2>
-              <Text2 style={styles.levo}>$ 1.500.000</Text2>
-            </Body>
-          </CardItem>
-          <CardItem>
-            <Body
-  style={{
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  }}
->
-            </Body>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>2</Text>
+              </Right>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem>
+              <Body style={styles.levo}>
+                <Thumbnail style={styles.levo} source={opportunityIcon} />
+                <Text2 style={styles.levo}>Total Opportunity</Text2>
+                <Text2 style={styles.levo}>$ 1.500.000</Text2>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body
+                style={{
+                  borderBottomColor: '#ccc',
+                  borderBottomWidth: 1,
+                }}
+              >
+              </Body>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Total Number of Clients</Text>
-            </Left>
-            <Right>
-              <Text>85</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>85</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Active Clients</Text>
-            </Left>
-            <Right>
-              <Text>$ 500.000</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPaddingLast}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>$ 500.000</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPaddingLast}>
+              <Left>
                 <Text>Potential Clients</Text>
-            </Left>
-            <Right>
-              <Text>$ 1.000.000</Text>
-            </Right>
-          </CardItem>
-        </Card>
-        <Card>
-          <CardItem>
-            <Body style={styles.levo}>
-              <Thumbnail style={styles.levo} source={incomeIcon} />
-              <Text2 style={styles.levo}>Total Net Sales</Text2>
-              <Text2 style={styles.levo}>$ 800.000</Text2>
-            </Body>
-          </CardItem>
-          <CardItem>
-            <Body
-  style={{
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  }}
->
-            </Body>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>$ 1.000.000</Text>
+              </Right>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem>
+              <Body style={styles.levo}>
+                <Thumbnail style={styles.levo} source={incomeIcon} />
+                <Text2 style={styles.levo}>Total Net Sales</Text2>
+                <Text2 style={styles.levo}>$ 800.000</Text2>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body
+                style={{
+                  borderBottomColor: '#ccc',
+                  borderBottomWidth: 1,
+                }}
+              >
+              </Body>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Total Number of Orders</Text>
-            </Left>
-            <Right>
-              <Text>200</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPadding}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>200</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPadding}>
+              <Left>
                 <Text>Price Per Order</Text>
-            </Left>
-            <Right>
-              <Text>$ 400</Text>
-            </Right>
-          </CardItem>
-          <CardItem style={styles.cardItemPaddingLast}>
-            <Left>
+              </Left>
+              <Right>
+                <Text>$ 400</Text>
+              </Right>
+            </CardItem>
+            <CardItem style={styles.cardItemPaddingLast}>
+              <Left>
                 <Text>Number of Unique Products</Text>
-            </Left>
-            <Right>
-              <Text>12</Text>
-            </Right>
-          </CardItem>
-        </Card>
-      </Content>
-    </Container>
+              </Left>
+              <Right>
+                <Text>12</Text>
+              </Right>
+            </CardItem>
+          </Card>
+        </Content>
+      </Container>
     );
   }
 }
@@ -506,23 +513,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#151515",
   },
-  cardBodyText:{
-    marginLeft:-12,
+  cardBodyText: {
+    marginLeft: -12,
   },
-  levo:{
-    alignSelf:"center"
+  levo: {
+    alignSelf: "center"
   },
-  cardStyle:{
-    padding:10
+  cardStyle: {
+    padding: 10
   },
-  cardItemPadding:{
-    paddingBottom:2,
-    paddingTop:2,
-    fontSize:7
+  cardItemPadding: {
+    paddingBottom: 2,
+    paddingTop: 2,
+    fontSize: 7
   },
-  cardItemPaddingLast:{
-    paddingBottom:20,
-    paddingTop:2
+  cardItemPaddingLast: {
+    paddingBottom: 20,
+    paddingTop: 2
   },
   heading: {
     fontSize: 20,
@@ -593,7 +600,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     padding: 10,
     margin: 10,
-    marginTop:0,
+    marginTop: 0,
   },
   visitDetailHeader: {
     flex: 1,
